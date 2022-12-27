@@ -22,6 +22,11 @@ const CallFunction = () => {
           <Text style={styles.tuope}>Press Me for call</Text>
         </TouchableOpacity>
       </View>
+      <View>
+        <TouchableOpacity onPress={callTRY} >
+          <Text style={styles.tuope}>Press me to send sms </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
