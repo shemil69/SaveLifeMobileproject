@@ -1,43 +1,76 @@
-import { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import call from "react-native-phone-call";
+import React from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import Communications from 'react-native-communications';
 
-const CallFunction = () => {
-  const [inputValue, setInputValue] = useState("0701169644");
 
-  const callTRY = () => {
-    const args = {
-      number: inputValue,
-      prompt: true,
-    };
-    call(args).create(console.error);
-  };
+const App = () => {
 
+  const phoneNumbe_iNdB = 'Get in databace '
+  
+    const Phonenumber = phoneNumbe_iNdB ;
+    const SmsText ='ThisIsAnExamppleTextForDonorDetailsSend';
   return (
-    <View>
-      <Text>I am working with call function</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
 
-      <View>
-        <TouchableOpacity onPress={callTRY} >
-          <Text style={styles.tuope}>Press Me for call</Text>
+         {/* For make a phone call to donor contact number  */}
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonStyle}
+          onPress={
+            () => Communications.phonecall(Phonenumber,true)
+          }>
+          <Text style={styles.buttonTextStyle}>
+            Make Phone Call
+          </Text>
         </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity onPress={callTRY} >
-          <Text style={styles.tuope}>Press me to send sms </Text>
+
+       
+        
+        {/* For make a phone call to donor contact number */}
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.buttonStyle}
+          onPress={() =>
+            Communications.text(Phonenumber,SmsText)
+          }>
+          <Text style={styles.buttonTextStyle}>
+            Send a Text/iMessage
+          </Text>
         </TouchableOpacity>
+        
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
+export default App;
+
 const styles = StyleSheet.create({
-    tuope:{
-        margin:'20%',
-        fontSize:20
-    }
-
-
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  titleText: {
+    fontSize: 22,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  buttonStyle: {
+    justifyContent: 'center',
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: '#8ad24e',
+  },
+  buttonTextStyle: {
+    color: '#fff',
+    textAlign: 'center',
+  },
 });
-
-export default CallFunction;
