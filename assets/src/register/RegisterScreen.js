@@ -1,10 +1,42 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { useState } from "react";
 import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import * as SQLite from 'expo-sqlite';
+import { useState, useEffect} from "react";
+
+
+
 
 const RegisterScreen = () => {
+
+  const db = SQLite.openDatabase('example.db');
+  const [isLoading, setisLoading] =useState(false);
+  const [name, setName] = useState([]);
+  const [currentName, setCurrentName] =useState(undefined);
+
+  useEffect(()=>{
+    db.transaction(tx =>{
+      tx.executeSql('CREATE TABLE IF NOT EXISTS registerInfo (id INTEGER PRIMARY KEY AUTOINCREMENT, clusterCenter TEXT, bloodBank TEXT, UserName TEXT, Password TEXT  )');
+    });
+
+    db.transaction(tx =>{
+      tx.executeSql('SELECT * FROM registerInfo ',null,
+      (txObj, resultSet) => setName(resultSet.rows._array),
+      (txObj, error)  => console.log(error)
+      
+      );
+    });
+    setisLoading(false);
+  }, []);
+
+  if (isLoading){
+    return(
+      console.log('loading now.. ')
+    );
+  }
+
+
     const [clusterOpen, setClusterOpen] = useState(false);
     const [clusterValue, setClusterValue] = useState(null);
     const [cluster, setCluster] = useState([
@@ -54,6 +86,21 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmpassword] = useState("");
   
+
+    //for insert value to userRegistation
+    const bloodBankUserReg =()=>{
+      db.transaction(tx =>{
+        tx.executeSql('INSERT INTO registerInfo (clusterCenter, bloodBank, UserName, Password) values (?,?,?,?,?) ',[],
+        (txObj, error)  => console.log(error)
+        )
+        console.log(clusterValue)
+        console.log(bloodbankValue)
+        console.log(username)
+        console.log(password)
+      });
+    }
+
+
     return (
       <View style={styles.container3}>
         <View>
@@ -121,7 +168,7 @@ const RegisterScreen = () => {
         </View>
   
         <View>
-          <TouchableOpacity style={styles.RegisterBtn}>
+          <TouchableOpacity style={styles.RegisterBtn} onPress={bloodBankUserReg}>
             <Text style={styles.RegisterText}>Register</Text>
           </TouchableOpacity>
         </View>
