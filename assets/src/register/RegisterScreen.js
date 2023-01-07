@@ -120,6 +120,7 @@ const RegisterScreen = () => {
                 setItems={setCluster}
                 placeholder="Select Cluster Center "
                 placeholderStyle={styles.placeholderStyles}
+                maxHeight={100}
               />
             </View>
           </View>
@@ -137,6 +138,7 @@ const RegisterScreen = () => {
                 setItems={setBloodbank}
                 placeholder="Select Blood Bank "
                 placeholderStyle={styles.placeholderStyles}
+                maxHeight={100}
               />
             </View>
           </View>

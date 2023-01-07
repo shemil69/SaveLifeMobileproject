@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import MapView from "react-native-maps";
+import { Marker } from 'react-native-maps';  
 import {
   Button,
   View,
@@ -67,6 +68,7 @@ const FinddonorScreen = ({ navigation }) => {
             setItems={setBlood}
             placeholder="Select Blood Group "
             placeholderStyle={styles.placeholderStyles}
+            maxHeight={100}
           />
         </View>
       </View>
@@ -84,6 +86,7 @@ const FinddonorScreen = ({ navigation }) => {
             setItems={setLocation}
             placeholder="Select Location "
             placeholderStyle={styles.placeholderStyles}
+            maxHeight={100}
           />
         </View>
       </View>
@@ -95,7 +98,13 @@ const FinddonorScreen = ({ navigation }) => {
       />
     
       <View style={styles.secondcontanner}>
-        <MapView style={styles.map} />
+        <MapView style={styles.map} >
+
+        <Marker  
+            coordinate={{ latitude: 6.9271, longitude: 79.8612 }}  
+            title={"Donor Location"}  
+          />  
+        </MapView>
       </View>
       
     </View>
@@ -233,7 +242,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     borderColor: "#B7B7B7",
-    height: 50,
+    
   },
   placeholderStyles: {
     color: "black",

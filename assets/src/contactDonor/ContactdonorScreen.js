@@ -9,12 +9,13 @@ import {
   Button,
 } from "react-native";
 import MapView from "react-native-maps";
+import { Marker } from 'react-native-maps';  
 import Communications from "react-native-communications";
 
 
 const ContactdonorScreen = () => {
-  const Phonenumber = "0715360857";
-  const SmsText = "ThisIsAnExamppleTextForDonorDetailsSend";
+  const Phonenumber = "0701169644";
+  const SmsText = "SMS for Blood donation request";
   const numberOfDonor = 4;
   const nameContanner = 'Donor Name here';
   return (
@@ -28,7 +29,12 @@ const ContactdonorScreen = () => {
 
         {/* For view google map  */}
         <View style={styles.container}>
-          <MapView style={styles.map} />
+          <MapView style={styles.map} >
+          <Marker  
+            coordinate={{ latitude: 6.9271, longitude: 79.8612 }}  
+            title={"Donor Location"}  
+          />  
+        </MapView>
         </View>
       </View>
       <View style={styles.callAndDonorContanner}>
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
 
   map: {
     width: "100%",
-    height: "100%",
+    height: "101%",
   },
   titleText: {
     fontSize: 22,
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     
     padding: 5,
-    backgroundColor: "#8ad24e",
+    backgroundColor: "#FF1493",
   },
   buttonTextStyle: {
     color: "#fff",

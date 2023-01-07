@@ -85,6 +85,7 @@ const BlooddetailScreen = () =>{
             setItems={setBlood}
             placeholder="Select Blood Group "
             placeholderStyle={styles.placeholderStyles}
+            maxHeight={100}
           />
         </View>
       </View>
