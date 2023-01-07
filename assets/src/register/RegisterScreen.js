@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
+import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import * as SQLite from 'expo-sqlite';
 import { useState, useEffect} from "react";
@@ -103,6 +103,7 @@ const RegisterScreen = () => {
 
     return (
       <View style={styles.container3}>
+         
         <View>
           <Text style={styles.TextHead}>REGISTER BLOOD BANK</Text>
         </View>
@@ -174,6 +175,7 @@ const RegisterScreen = () => {
             <Text style={styles.RegisterText}>Register</Text>
           </TouchableOpacity>
         </View>
+        
       </View>
     );
   };
