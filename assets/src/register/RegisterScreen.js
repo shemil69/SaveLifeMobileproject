@@ -4,37 +4,15 @@ import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "rea
 import DropDownPicker from "react-native-dropdown-picker";
 import * as SQLite from 'expo-sqlite';
 import { useState, useEffect} from "react";
+import { allowsVoipAsync } from "expo-cellular";
 
 
 
 
 const RegisterScreen = () => {
 
-  const db = SQLite.openDatabase('example.db');
-  const [isLoading, setisLoading] =useState(false);
-  const [name, setName] = useState([]);
-  const [currentName, setCurrentName] =useState(undefined);
 
-  useEffect(()=>{
-    db.transaction(tx =>{
-      tx.executeSql('CREATE TABLE IF NOT EXISTS registerInfo (id INTEGER PRIMARY KEY AUTOINCREMENT, clusterCenter TEXT, bloodBank TEXT, UserName TEXT, Password TEXT  )');
-    });
-
-    db.transaction(tx =>{
-      tx.executeSql('SELECT * FROM registerInfo ',null,
-      (txObj, resultSet) => setName(resultSet.rows._array),
-      (txObj, error)  => console.log(error)
-      
-      );
-    });
-    setisLoading(false);
-  }, []);
-
-  if (isLoading){
-    return(
-      console.log('loading now.. ')
-    );
-  }
+  
 
 
     const [clusterOpen, setClusterOpen] = useState(false);
@@ -82,23 +60,65 @@ const RegisterScreen = () => {
       { label: "Trincomalee", value: "Trincomalee" },
       { label: "Vavuniya", value: "Vavuniya" },
     ]);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmpassword, setConfirmpassword] = useState("");
+    const [username, setUsername] = useState([]);
+    const [password, setPassword] = useState([]);
+    const [confirmpassword, setConfirmpassword] = useState([]);
+    
   
-
+//Db start-----------------
     //for insert value to userRegistation
     const bloodBankUserReg =()=>{
-      db.transaction(tx =>{
-        tx.executeSql('INSERT INTO registerInfo (clusterCenter, bloodBank, UserName, Password) values (?,?,?,?,?) ',[],
-        (txObj, error)  => console.log(error)
+     if (username.length == 0 || password.length==0 ||confirmpassword.length==0 ){
+      alert("Required field is missing");
+     }
+     else{
+      // Variable for declare local Api path 
+      
+
+      var dataobj ={}
+      dataobj.Cluster=clusterValue,
+      dataobj.Bloodbank=bloodbankValue,
+      dataobj.Username=username,
+      dataobj.Password=password,
+      dataobj.Confirmpassword=confirmpassword;
+
+      var InsertApiURL = "http://10.0.2.2:80/api/insert.php";
+
+      //this contain header related component
+      var headers ={
+        'Accept': 'application/json',
+        'Content-Type':'application/json'
+      };
+      var Data={
+        
+        clusterValue:clusterValue,
+        bloodbankValue:bloodbankValue,
+        username:username,
+        password:password,
+        confirmpassword:confirmpassword
+      };
+      fetch(InsertApiURL,
+        {
+          method:'POST',
+          headers:headers,
+          body:JSON.stringify(dataobj)
+        }
         )
-        console.log(clusterValue)
-        console.log(bloodbankValue)
-        console.log(username)
-        console.log(password)
-      });
+        //whether output api json or not
+        .then((responce)=> responce.json())
+        .then((responce)=>
+        {
+          alert(responce[0].Message);
+        }
+        )
+        //hndle exception 
+        .catch((error)=>
+        {
+          alert("Error 001"+ error);
+        })
+     }
     }
+   
 
 
     return (
