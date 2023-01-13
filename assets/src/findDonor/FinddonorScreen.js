@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     margin:'5%',
   },
   map:{
-    width:'-100%',
+    width:'100%',
     height:'70%',
   }
  
