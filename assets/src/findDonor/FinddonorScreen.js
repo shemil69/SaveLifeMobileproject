@@ -96,18 +96,31 @@ const FinddonorScreen = ({ navigation }) => {
         title="FIND DONOR"
         onPress={() => navigation.navigate("Contact Donor")}
       />
-    
-      <View style={styles.secondcontanner}>
-        <MapView style={styles.map} >
-
-        <Marker  
-            coordinate={{ latitude: 6.9271, longitude: 79.8612 }}  
-            title={"Donor Location"}  
+  
+  <MapView  
+          style={styles.map}  
+          showsUserLocation={false}  
+          zoomEnabled={true}  
+          zoomControlEnabled={true}  
+          initialRegion={{  
+            latitude:7.8731,   
+            longitude: 80.7718,  
+            latitudeDelta:3.000,  
+            longitudeDelta: 3.000,  
+          }}>  
+  
+          <Marker  
+            coordinate={{ latitude: 6.8677, longitude:79.8766 }}  
+            title={"Colombo"}  
+            
           />  
-        </MapView>
-      </View>
-      
-    </View>
+        </MapView>  
+          
+
+  
+
+
+     </View>
   );
 };
 const styles = StyleSheet.create({
@@ -266,8 +279,8 @@ const styles = StyleSheet.create({
     margin:'5%',
   },
   map:{
-    width:'100%',
-    height:'100%',
+    width:'-100%',
+    height:'70%',
   }
  
 });
