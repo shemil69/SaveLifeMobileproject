@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import SQLite from 'react-native-sqlite-storage';
 
 
@@ -9,14 +10,97 @@ import SQLite from 'react-native-sqlite-storage';
 
 const LoginScreen = ({navigation}) => {
 
-    const [email, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+    const [UserName, setUserName] = useState("");
+    const [Password, setPassword] = useState("");
+    const [isSequireEntry, setisSequireEntry] = useState(true);
 
-    //this is change 
-    
+  //const for form validation
+const [data, setData]=React.useState({
+  username :'',
+  password:'',
+  chechInputChange:false,
+  secureTextEntry:true,
+  isValidUser:true,
+  isValidPassword:true,
+ 
+
+});
+/*
+const handlepassword=(val)=>{
+  if(val.trim().length>0){
+    setData({
+      ...data,
+      isValidUser:true,
+
+    });
+  }else{
+    setData({
+      ...data,
+      isValidUser:false,
+
+    });
+  }
+}
+    //this is change must apper here
+function detailsEmpty(){
+  UserName="";
+  Password="";
+}
+*/
+//form validation
+
+
+  loginUser=()=>{
+    if(UserName.length == 0 || Password.length==0){
+      alert('Required field is missing');
+    }else{
+      var InsertApiURL = "http://10.0.2.2:80/api/login.php";
+
+      var headers ={
+        'Accept': 'application/json',
+        'Content-Type':'application/json'
+      };
+
+      var dataobj ={}
+      dataobj.Username=UserName,
+      dataobj.Password=Password;
+      
+     
+      fetch(InsertApiURL,
+        {
+          method:'POST',
+          headers:headers,
+          body:JSON.stringify(dataobj)
+        }
+        )
+        //whether output api json or not
+        .then((responce)=> responce.json())
+        .then((responceJSON)=>
+        {
+          if(responceJSON == 'ok'){
+            alert('Incorrect username or password');
+            //detailsEmpty();
+          }else{
+            navigation.navigate("Category");
+            //detailsEmpty();
+          }
+        }
+        )
+        //hndle exception 
+        .catch((error)=>
+        {
+          alert("Error 001"+ error);
+        })
+     
+
+
+    }
+  }
 
     return (
+      
       <View style={styles.container3}>
+        <ScrollView>
         <View>
           <Text style={styles.TextHead}>SAVE LIFE BLOOD BANK</Text>
         </View>
@@ -27,24 +111,29 @@ const LoginScreen = ({navigation}) => {
           <TextInput
             style={styles.input}
             selectionColor={"#5188E3"}
+           
             onChangeText={(Username) => setUserName(Username)}
           />
-  
+          
+          
+          
           <Text style={styles.label2}>Password</Text>
           <TextInput
             style={styles.input}
-            secureTextEntry={true}
+            secureTextEntry={isSequireEntry}
+            
             selectionColor={"#5188E3"}
             onChangeText={(Password) => setPassword(Password)}
+            
           />
-  
+          
           <View>
             <TouchableOpacity style={styles.RegisterBtn}>
               <Text style={styles.RegisterText}>Register</Text>
             </TouchableOpacity>
           </View>
   
-          <Button title="Login" onPress={() => navigation.push("Category")} />
+          <Button title="Login" onPress={loginUser} />
           <View style={styles.fixToTxt}>
             <Button
               title="Forgot Password"
@@ -58,6 +147,7 @@ const LoginScreen = ({navigation}) => {
             
           </View>
         </View>
+        </ScrollView>
       </View>
     );
   };
