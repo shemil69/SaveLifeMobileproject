@@ -29,11 +29,39 @@ const ContactdonorScreen = () => {
 
         {/* For view google map  */}
         <View style={styles.container}>
-          <MapView style={styles.map} >
+          <MapView 
+                 style={styles.map}
+                 showsUserLocation={false}  
+          zoomEnabled={true}  
+          zoomControlEnabled={true}  
+          initialRegion={{  
+            latitude:6.9271,   
+            longitude: 79.8612,  
+            latitudeDelta:0.090,  
+            longitudeDelta: 0.090,  
+          }}>  
+  
           <Marker  
-            coordinate={{ latitude: 6.9271, longitude: 79.8612 }}  
-            title={"Donor Location"}  
+            coordinate={{ latitude: 6.9044, longitude:79.8540 }}  
+            title={"Bamplapitiya"}  
+            
           />  
+           
+          <Marker  
+            coordinate={{ latitude: 6.9270, longitude: 79.8640 }}  
+            title={"Maradana"}  
+          />  
+            
+            <Marker  
+            coordinate={{ latitude: 6.9361, longitude: 79.8450 }}  
+            title={"Fort"}  
+          /> 
+             
+             <Marker  
+            coordinate={{ latitude: 6.8976, longitude: 79.8815 }}  
+            title={"Narahenpita"}  
+          /> 
+
         </MapView>
         </View>
       </View>
@@ -48,7 +76,7 @@ const ContactdonorScreen = () => {
             style={styles.buttonStyle}
             onPress={() => Communications.phonecall(Phonenumber, true)}
           >
-            <Text style={styles.buttonTextStyle}>Make Phone Call</Text>
+            <Text style={styles.buttonTextStyle}>Voice call</Text>
           </TouchableOpacity>
           {/* For make a phone call to donor contact number */}
           <TouchableOpacity
@@ -56,7 +84,7 @@ const ContactdonorScreen = () => {
           style={styles.buttonStyle}
           onPress={() => Communications.text(Phonenumber, SmsText)}
           >
-          <Text style={styles.buttonTextStyle}>Send a Text/iMessage</Text>
+          <Text style={styles.buttonTextStyle}>Send a Text</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -93,7 +121,7 @@ const styles = StyleSheet.create({
 
   map: {
     width: "100%",
-    height: "101%",
+    height: "100%",
   },
   titleText: {
     fontSize: 22,
@@ -117,10 +145,13 @@ const styles = StyleSheet.create({
     
     padding: 5,
     backgroundColor: "#FF1493",
+    
   },
   buttonTextStyle: {
     color: "#fff",
     textAlign: "center",
+    marginRight:'11%',
+  
   },
 });
 export default ContactdonorScreen;
