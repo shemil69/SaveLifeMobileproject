@@ -1,8 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { ScrollView } from "react-native-gesture-handler";
 
 const AdddonorScreen = ({navigation}) =>{
     const [name, setName] = useState("");
@@ -12,8 +14,25 @@ const AdddonorScreen = ({navigation}) =>{
     const [number1, setNumber1] = useState("");
     const [number2, setNumber2] = useState("");
     const [donation, setDonation] = useState("");
+
+const navigations = useNavigation();
+
+    const renext=()=>{
+      navigations.navigate('Donor Blood Detail',{
+        name:name,
+        birth:birth,
+        address:address,
+        id:id,
+        number1:number1,
+        number2:number2,
+        donation:donation,
+      });
+    };
+
     return (
+      <ScrollView>
       <View style={styles.container3}>
+        
         <View style={styles.content2}>
           <Text style={styles.label2}>Donor Name</Text>
           <TextInput
@@ -67,9 +86,10 @@ const AdddonorScreen = ({navigation}) =>{
   
         <Button
           title="NEXT"
-          onPress={() => navigation.navigate("Donor Blood Detail")}
+          onPress={() => renext()}
         />
       </View>
+    </ScrollView>
     );
 };
 const styles = StyleSheet.create({
