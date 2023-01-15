@@ -127,13 +127,9 @@ function detailsEmpty(){
             
           />
           
-          <View>
-            <TouchableOpacity style={styles.RegisterBtn}>
-              <Text style={styles.RegisterText}>Register</Text>
-            </TouchableOpacity>
-          </View>
-  
           <Button title="Login" onPress={loginUser} />
+          
+
           <View style={styles.fixToTxt}>
             <Button
               title="Forgot Password"

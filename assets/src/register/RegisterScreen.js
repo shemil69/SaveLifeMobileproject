@@ -154,7 +154,7 @@ const RegisterScreen = ({ navigation }) => {
         })
         //hndle exception
         .catch((error) => {
-          alert("Error" + error);
+          alert("Wrong" + error);
         });
     }
   };
