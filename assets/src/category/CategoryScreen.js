@@ -4,6 +4,7 @@ import { useState } from "react";
 import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
 
 const CategoryScreen = ({navigation}) =>{
+  //code
     return (
         <View style={styles.container}>
           <View style={styles.fixToText}>

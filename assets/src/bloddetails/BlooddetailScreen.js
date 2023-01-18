@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const BlooddetailScreen = () => {
+const BlooddetailScreen = ({navigation}) => {
   const route = useRoute();
 
   const [ageOpen, setAgeOpen] = useState(false);
@@ -54,10 +54,6 @@ const BlooddetailScreen = () => {
     ) {
       alert("Required field is missing");
     } else {  
-      
-
-        
-
       var InsertApiURL = "http://10.0.2.2:80/api/DonorRegister.php";
 
       //this contain header related component
@@ -90,6 +86,7 @@ const BlooddetailScreen = () => {
         .then((responce) => responce.json())
         .then((responce) => {
           alert(responce[0].Message);
+          navigation.navigate("Category");
         })
         //hndle exception
         .catch((error) => {

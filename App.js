@@ -12,6 +12,7 @@ import AdddonorScreen from "./assets/src/addDonor/AdddonorScreen.js";
 import BlooddetailScreen from "./assets/src/bloddetails/BlooddetailScreen.js";
 import FinddonorScreen from "./assets/src/findDonor/FinddonorScreen.js";
 import ContactdonorScreen from "./assets/src/contactDonor/ContactdonorScreen.js";
+import FindAccount from "./assets/src/passwords/FindAccount.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ function App() {
         <Stack.Screen name="Donor Blood Detail" component={BlooddetailScreen} />
         <Stack.Screen name="Find Donor" component={FinddonorScreen} /> 
         <Stack.Screen name="Contact Donor" component={ContactdonorScreen} /> 
+        <Stack.Screen name="FindAccount" component={FindAccount} /> 
         </Stack.Navigator>
     </NavigationContainer>
   );

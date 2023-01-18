@@ -9,61 +9,108 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+
+import { SelectList } from "react-native-dropdown-select-list";
 import * as SQLite from "expo-sqlite";
 import { useState, useEffect } from "react";
 import { allowsVoipAsync } from "expo-cellular";
+import { ScrollView } from "react-native-gesture-handler";
 
 const RegisterScreen = ({ navigation }) => {
-  const [clusterOpen, setClusterOpen] = useState(false);
-  const [clusterValue, setClusterValue] = useState(null);
-  const [cluster, setCluster] = useState([
-    { label: "Ampara", value: "Ampara" },
-    { label: "Anuradhapura", value: "Anuradhapura" },
-    { label: "Badulla", value: "Badulla" },
-    { label: "Batticaloa", value: "Batticaloa" },
-    { label: "CIM", value: "CIM" },
-    { label: "CNTH", value: "CNTH" },
-    { label: "Jaffna", value: "Jaffna" },
-    { label: "Kalutara", value: "Kalutara" },
-    { label: "Kamburugamuwa", value: "Kamburugamuwa" },
-    { label: "Kandy", value: "Kandy" },
-    { label: "Karapitiya", value: "Karapitiya" },
-    { label: "Kurunegala", value: "Kurunegala" },
-    { label: "NBC", value: "NBC" },
-    { label: "Rathnapura", value: "Rathnapura" },
-    { label: "Trincomalee", value: "Trincomalee" },
-    { label: "Vavuniya", value: "Vavuniya" },
-  ]);
-  const [bloodbankOpen, setBloodbankOpen] = useState(false);
-  const [bloodbankValue, setBloodbankValue] = useState(null);
-  const [bloodbank, setBloodbank] = useState([
-    { label: "Akkaraipattu", value: "Akkaraipattu" },
-    { label: "Ampara", value: "Ampara" },
-    { label: "Batticaloa", value: "Batticaloa" },
-    { label: "Badulla", value: "Badulla" },
-    { label: "Colombo", value: "Colombo" },
-    { label: "Dambulla", value: "Dambulla" },
-    { label: "Dikkoya", value: "Dikkoya" },
-    { label: "Gampaha", value: "Gampaha" },
-    { label: "Gampola", value: "Gampola" },
-    { label: "Homagama", value: "Homagama" },
-    { label: "Horana", value: "Horana" },
-    { label: "Jaffna", value: "Jaffna" },
-    { label: "Kandy", value: "Kandy" },
-    { label: "Kegalle", value: "Kegalle" },
-    { label: "Killinochchi", value: "Killinochchi" },
-    { label: "Mannar", value: "Mannar" },
-    { label: "NuwaraEliya", value: "NuwaraEliya" },
-    { label: "Polonnaruwa", value: "Polonnaruwa" },
-    { label: "Ratnapura", value: "Ratnapura" },
-    { label: "Trincomalee", value: "Trincomalee" },
-    { label: "Vavuniya", value: "Vavuniya" },
-  ]);
+  
+ 
+ 
+const [clusteropn, setclusteropn] = useState("Ampara");
+const [subbranch, setsubbranch] = useState("");
+const catogaries = [
+  { key: "Ampara", value: "Ampara" },
+  { key: "Anuradhapura", value: "Anuradhapura" },
+  { key: "Badulla", value: "Badulla" },
+  { key: "Batticaloa", value: "Batticaloa" },
+  { key: "CIM", value: "CIM" },
+  { key: "CNTH", value: "CNTH" },
+  { key: "Jaffna", value: "Jaffna" },
+  { key: "Kalutara", value: "Kalutara" },
+  { key: "Kamburugamuwa", value: "Kamburugamuwa" },
+  { key: "Kandy", value: "Kandy" },
+  { key: "Karapitiya", value: "Karapitiya" },
+  { key: "Kurunegala", value: "Kurunegala" },
+  { key: "NBC", value: "NBC" },
+  { key: "Rathnapura", value: "Rathnapura" },
+  { key: "Trincomalee", value: "Trincomalee" },
+  { key: "Vavuniya", value: "Vavuniya" },
+
+];
+const subcatogary = {
+  'Ampara':[
+    { key: "Ampara", value: "Ampara" },
+    { key: "ampara sub", value: "ampara sub" },
+  ],
+  'Anuradhapura':[
+    { key: "Anuradhapura", value: "Anuradhapura" },
+    { key: "Anuradhapura sub", value: "Anuradhapura sub" },
+  ],
+  'Badulla':[
+    { key: "Ampara", value: "Ampara" },
+    { key: "ampara sub", value: "ampara sub" },
+  ],
+  'Batticaloa':[
+    { key: "Badulla", value: "Badulla" },
+    { key: "Badulla sub", value: "Badulla sub" },
+  ],
+  'CIM':[
+    { key: "CIM", value: "CIM" },
+    { key: "CIM sub", value: "CIM sub" },
+  ],
+  'CNTH':[
+    { key: "CNTH", value: "CNTH" },
+    { key: "CNTH sub", value: "CNTH sub" },
+  ],
+  'Jaffna':[
+    { key: "Jaffna", value: "Jaffna" },
+    { key: "Jaffna sub", value: "Jaffna sub" },
+  ],
+  'Kalutara':[
+    { key: "Kalutara", value: "Ampara" },
+    { key: "Kalutara sub", value: "ampara sub" },
+  ],
+  'Kamburugamuwa':[
+    { key: "Kamburugamuwa", value: "Ampara" },
+    { key: "Kamburugamuwa sub", value: "ampara sub" },
+  ],
+  'Kandy':[
+    { key: "Kandy", value: "Ampara" },
+    { key: "Kandy sub", value: "ampara sub" },
+  ],
+  'Karapitiya':[
+    { key: "Karapitiya", value: "Ampara" },
+    { key: "Karapitiya sub", value: "ampara sub" },
+  ],
+  'Kurunegala':[
+    { key: "Kurunegala", value: "Ampara" },
+    { key: "Kurunegala sub", value: "ampara sub" },
+  ],
+  'NBC':[
+    { key: "NBC", value: "Ampara" },
+    { key: "NBC sub", value: "ampara sub" },
+  ],
+  'Rathnapura':[
+    { key: "Rathnapura", value: "Ampara" },
+    { key: "Rathnapura sub", value: "ampara sub" },
+  ],
+  'Trincomalee':[
+    { key: "Trincomalee", value: "Trincomalee" },
+    { key: "Trincomalee sub", value: "Trincomalee sub" },
+  ],
+  'Vavuniya':[
+    { key: "Vavuniya", value: "Vavuniya" },
+    { key: "Vavuniya sub", value: "Vavuniya sub" },
+  ],
+};
   const [username, setUsername] = useState([]);
   const [password, setPassword] = useState([]);
   const [confirmpassword, setConfirmpassword] = useState([]);
-
+  const [mobileNumber, setmobileNumber] = useState([]);
   //const for form validation
   const [data, setData] = React.useState({
     confrmpass: '',
@@ -123,8 +170,11 @@ const RegisterScreen = ({ navigation }) => {
       username.length == 0 ||
       password.length == 0 ||
       confirmpassword.length == 0
+      
     ) {
       alert("Required field is missing");
+      
+      
     } else {
       // Variable for declare local Api path
       var InsertApiURL = "http://10.0.2.2:80/api/insert.php";
@@ -135,11 +185,12 @@ const RegisterScreen = ({ navigation }) => {
         "Content-Type": "application/json",
       };
       var dataobj = {};
-      (dataobj.Cluster = clusterValue),
-        (dataobj.Bloodbank = bloodbankValue),
+      (dataobj.Cluster = clusteropn),
+        (dataobj.Bloodbank = subbranch),
         (dataobj.Username = username),
         (dataobj.Password = password),
         (dataobj.Confirmpassword = confirmpassword);
+        (dataobj.MobileNumber = mobileNumber);
 
       fetch(InsertApiURL, {
         method: "POST",
@@ -161,6 +212,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container3}>
+     <ScrollView>
       <View>
         <Text style={styles.TextHead}>REGISTER BLOOD BANK</Text>
       </View>
@@ -168,17 +220,11 @@ const RegisterScreen = ({ navigation }) => {
         <View style={{ zIndex: 2 }}>
           <View style={styles.dropdownAge}>
             <Text style={styles.label2}>Cluster Center</Text>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={clusterOpen}
-              value={clusterValue}
-              items={cluster}
-              setOpen={setClusterOpen}
-              setValue={setClusterValue}
-              setItems={setCluster}
-              placeholder="Select Cluster Center "
-              placeholderStyle={styles.placeholderStyles}
-              maxHeight={100}
+            <SelectList
+              setSelected={setclusteropn}
+              data={catogaries}
+              placeholder={"Slect cluster center"}
+              
             />
           </View>
         </View>
@@ -186,17 +232,10 @@ const RegisterScreen = ({ navigation }) => {
         <View style={{ zIndex: 1 }}>
           <View style={styles.dropdownAge}>
             <Text style={styles.label2}>Blood Bank</Text>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={bloodbankOpen}
-              value={bloodbankValue}
-              items={bloodbank}
-              setOpen={setBloodbankOpen}
-              setValue={setBloodbankValue}
-              setItems={setBloodbank}
-              placeholder="Select Blood Bank "
-              placeholderStyle={styles.placeholderStyles}
-              maxHeight={100}
+            <SelectList
+               setSelected={setsubbranch}
+               data={subcatogary[clusteropn]}
+               placeholder={"Slect cluster center"}
             />
           </View>
         </View>
@@ -234,13 +273,26 @@ const RegisterScreen = ({ navigation }) => {
         {data.isValidcmfPassword ? null : (
           <Text>Please confrom your password</Text>
         )}
+         <Text style={styles.label2}>Mobile Number</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType='numeric'
+          secureTextEntry={false}
+          selectionColor={"#5188E3"}
+          onChangeText={(MobileNumber) =>
+            setmobileNumber(MobileNumber)
+          }
+          
+        />
+       
       </View>
-
+    
       <View>
         <TouchableOpacity style={styles.RegisterBtn} onPress={bloodBankUserReg}>
           <Text style={styles.RegisterText}>Register</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
   );
 };
@@ -397,6 +449,7 @@ const styles = StyleSheet.create({
   dropdown: {
     borderColor: "#B7B7B7",
     height: 50,
+    
   },
   placeholderStyles: {
     color: "black",

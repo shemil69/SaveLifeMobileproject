@@ -2,14 +2,33 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { useState } from "react";
 import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 const PasswordScreen = () =>{
     const [NewPassword, setNewPassword] = useState("");
   const [Confirmpassword, setConfirmpassword] = useState("");
+
+  // after validating user name
+  const [data, setData] = React.useState({
+    confrmpass: '',
+   
+    isValidUser: true,
+   
+  });
+
+
+
+
+  //password error hndling
   return (
     <View style={styles.container3}>
+      <ScrollView>
+
+      
       <View style={styles.content}>
         <Image style={styles.logo} source={require("../images/image4.png")} />
+
+        <Text style={styles.label2}>{}</Text>
 
         <Text style={styles.label2}>New Password</Text>
         <TextInput
@@ -30,11 +49,16 @@ const PasswordScreen = () =>{
         />
 
         <View>
-          <TouchableOpacity style={styles.RegisterBtn}>
-            <Text style={styles.RegisterText}>Register</Text>
-          </TouchableOpacity>
+          
+          {
+           <TouchableOpacity style={styles.RegisterBtn}>
+           <Text style={styles.RegisterText}>Register</Text>
+         </TouchableOpacity>
+          }
+         
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 };
