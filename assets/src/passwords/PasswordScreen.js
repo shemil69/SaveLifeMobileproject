@@ -1,22 +1,77 @@
 import { StatusBar } from "expo-status-bar";
+import { useRoute } from "@react-navigation/native";
 import * as React from "react";
 import { useState } from "react";
-import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput,} from "react-native";
+import {Button,View,Text,StyleSheet,TouchableOpacity,Image,TextInput, Alert,} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-const PasswordScreen = () =>{
+const PasswordScreen = ({navigation}) =>{
+  const route = useRoute();
+
     const [NewPassword, setNewPassword] = useState("");
   const [Confirmpassword, setConfirmpassword] = useState("");
 
   // after validating user name
-  const [data, setData] = React.useState({
-    confrmpass: '',
+ 
+
+  const updatedonor =() =>{
+
+    if(NewPassword == '' || Confirmpassword == ''){
+      alert('Required filed missing ');
+    }else{
+      
+
+    var InsertApiURL = "http://10.0.2.2:80/api/PasswordUpdate.php";
+
+    var headers ={
+      'Accept': 'application/json',
+      'Content-Type':'application/json'
+    };
+
+    var dataobj ={}
+
+    dataobj.Username=route.params.userName,
+    dataobj.Password=NewPassword,
+    dataobj.frgPassword=Confirmpassword;
    
-    isValidUser: true,
+    fetch(InsertApiURL,
+      {
+        method:'POST',
+        headers:headers,
+        body:JSON.stringify(dataobj)
+      }
+      )
+      //whether output api json or not
+      .then((responce)=> responce.json())
+      .then((responceJSON)=>
+      {
+        if(responceJSON == 'ok'){
+          alert('Data is not match ');
+         
+        }else{
+          alert('Your Password Updated ');
+          navigation.navigate("Login");
+         
+        }
+      }
+      )
+      //hndle exception 
+      .catch((error)=>
+      {
+        alert("Error 001"+ error);
+      })
    
-  });
 
 
+
+
+
+
+
+    }
+
+    
+  }
 
 
   //password error hndling
@@ -51,7 +106,7 @@ const PasswordScreen = () =>{
         <View>
           
           {
-           <TouchableOpacity style={styles.RegisterBtn}>
+           <TouchableOpacity style={styles.RegisterBtn} onPress = {updatedonor} >
            <Text style={styles.RegisterText}>Register</Text>
          </TouchableOpacity>
           }

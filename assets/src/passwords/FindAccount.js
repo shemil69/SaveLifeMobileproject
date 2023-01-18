@@ -10,13 +10,23 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const FindAccount = ({ navigation }) => {
 
-    
+ 
 
     const [userName, setUsername] = useState(null);
     const [phoneNumber , setPhoneneumber] = useState(null);
+
+    const navigations = useNavigation();
+
+    const renext=()=>{
+    navigations.navigate('Forgot Password',{
+      userName:userName,
+     
+    });
+  }
 
 //For find details on DB
 const findUser = () =>{
@@ -49,11 +59,10 @@ const findUser = () =>{
         {
           if(responceJSON == 'ok'){
             alert('Data is not match ');
-            navigation.navigate("Forgot Password");
-            //detailsEmpty();
           }else{
             navigation.navigate("Forgot Password");
-            //detailsEmpty();
+            renext();
+            
           }
         }
         )
@@ -93,7 +102,7 @@ const findUser = () =>{
           onChangeText={(phoneNumber) => setPhoneneumber(phoneNumber)}
           selectionColor={"#5188E3"}
         />
-        <TouchableOpacity style={styles.RegisterBtn } onPress={findUser}>
+        <TouchableOpacity style={styles.RegisterBtn } onPress={renext}>
           <Text style={styles.RegisterText}>Find</Text>
         </TouchableOpacity>
         </ScrollView>
