@@ -126,10 +126,9 @@ function detailsEmpty(){
             onChangeText={(Password) => setPassword(Password)}
             
           />
-          
-          
-  
           <Button title="Login" onPress={loginUser} />
+          
+
           <View style={styles.fixToTxt}>
             <Button
               title="Forgot Password"
