@@ -23,8 +23,6 @@ const BlooddetailScreen = ({navigation}) => {
     {Key:"Between 18-60 Years" , value: "Between 18-60 Years"},
     {Key:"Above 60 Years" , value: "Above 60 Years"},
   ];
-
-  
   const [weightValue, setWeightValue] = useState('');
   const ageWeight=[
     {Key:"Between 50Kg to 75Kg" , value: "Between 50Kg to 75Kg"},
