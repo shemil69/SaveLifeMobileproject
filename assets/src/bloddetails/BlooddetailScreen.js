@@ -12,40 +12,45 @@ import {
   TextInput,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { SelectList } from "react-native-dropdown-select-list";
 
 const BlooddetailScreen = ({navigation}) => {
   const route = useRoute();
 
-  const [ageOpen, setAgeOpen] = useState(false);
-  const [ageValue, setAgeValue] = useState(null);
-  const [age, setAge] = useState([
-    { label: "Between 18-60 Years", value: "eligible" },
-    { label: "Above 60 Years", value: "above age limit" },
-  ]);
-  const [weightOpen, setWeightOpen] = useState(false);
-  const [weightValue, setWeightValue] = useState(null);
-  const [weight, setWeight] = useState([
-    { label: "Between 50Kg to 75Kg", value: "not eligible" },
-    { label: "75Kg or more", value: "eligible" },
-  ]);
-  const [bloodOpen, setBloodOpen] = useState(false);
-  const [bloodValue, setBloodValue] = useState(null);
-  const [blood, setBlood] = useState([
-    { label: "A+", value: "A+" },
-    { label: "A-", value: "A-" },
-    { label: "B+", value: "B+" },
-    { label: "B-", value: "B-" },
-    { label: "AB+", value: "AB+" },
-    { label: "AB-", value: "AB-" },
-    { label: "O+", value: "O+" },
-    { label: "O-", value: "O-" },
-  ]);
-  const [hemoglobinOpen, setHemoglobinOpen] = useState(false);
-  const [hemoglobinValue, setHemoglobinValue] = useState(null);
-  const [hemoglobin, setHemoglobin] = useState([
-    { label: "Men-13.0 g/dl ", value: "13.0 g/dl" },
-    { label: "Female-12.5 g/dl", value: "12.5 g/dl" },
-  ]);
+  
+  const [ageValue, setAgeValue] = useState('');
+  const ageCatogary=[
+    {Key:"Between 18-60 Years" , value: "Between 18-60 Years"},
+    {Key:"Above 60 Years" , value: "Above 60 Years"},
+  ];
+
+  
+  const [weightValue, setWeightValue] = useState('');
+  const ageWeight=[
+    {Key:"Between 50Kg to 75Kg" , value: "Between 50Kg to 75Kg"},
+    {Key:"75Kg or more" , value: "75Kg or more"},
+  ];
+
+
+  const [bloodValue, setBloodValue] = useState('');
+  const bldgroupctgry=[
+    { Key: "A+", value: "A+" },
+    { Key: "A-", value: "A-" },
+    { Key: "B+", value: "B+" },
+    { Key: "B-", value: "B-" },
+    { Key: "AB+", value: "AB+" },
+    { Key: "AB-", value: "AB-" },
+    { Key: "O+", value: "O+" },
+    { Key: "O-", value: "O-" },
+  ];
+
+
+
+  const [hemoglobinValue, setHemoglobinValue] = useState('');
+  const hmgllvl = [
+    { Key: "Men-13.0 g/dl ", value: "13.0 g/dl" },
+    { Key: "Female-12.5 g/dl", value: "12.5 g/dl" },
+  ];
 
   // Save details in db
   const DonorReg = () => {
@@ -97,19 +102,14 @@ const BlooddetailScreen = ({navigation}) => {
 
   return (
     <View style={styles.container1}>
-      <View style={{ zIndex: 4 }}>
+      <View style={styles.content}>
+      <View style={{ zIndex: 5 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Age</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={ageOpen}
-            value={ageValue}
-            items={age}
-            setOpen={setAgeOpen}
-            setValue={setAgeValue}
-            setItems={setAge}
-            placeholder="Select Age"
-            placeholderStyle={styles.placeholderStyles}
+          <SelectList
+            setSelected={setAgeValue}
+            data={ageCatogary}
+            placeholder={"Select Age"}
           />
         </View>
       </View>
@@ -117,16 +117,10 @@ const BlooddetailScreen = ({navigation}) => {
       <View style={{ zIndex: 3 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Weight</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={weightOpen}
-            value={weightValue}
-            items={weight}
-            setOpen={setWeightOpen}
-            setValue={setWeightValue}
-            setItems={setWeight}
-            placeholder="Select Weight "
-            placeholderStyle={styles.placeholderStyles}
+          <SelectList
+            setSelected={setBloodValue}
+            data={ageWeight}
+            placeholder={"Select Weight"}
           />
         </View>
       </View>
@@ -134,17 +128,12 @@ const BlooddetailScreen = ({navigation}) => {
       <View style={{ zIndex: 2 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Blood Group</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={bloodOpen}
-            value={bloodValue}
-            items={blood}
-            setOpen={setBloodOpen}
-            setValue={setBloodValue}
-            setItems={setBlood}
-            placeholder="Select Blood Group "
-            placeholderStyle={styles.placeholderStyles}
-            maxHeight={100}
+          <SelectList
+       
+          setSelected={setWeightValue}
+          data={bldgroupctgry}
+          placeholder={"Select Blood Group"}
+            
           />
         </View>
       </View>
@@ -152,19 +141,16 @@ const BlooddetailScreen = ({navigation}) => {
       <View style={{ zIndex: 1 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Hemoglobin Level</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={hemoglobinOpen}
-            value={hemoglobinValue}
-            items={hemoglobin}
-            setOpen={setHemoglobinOpen}
-            setValue={setHemoglobinValue}
-            setItems={setHemoglobin}
-            placeholder="Select Hemoglobin Level "
-            placeholderStyle={styles.placeholderStyles}
+          <SelectList
+          hmgllvl
+          setSelected={setHemoglobinValue}
+          data={hmgllvl}
+          placeholder={"Select Hemoglobin Level"}
+           
           />
         </View>
       </View>
+    </View>
 
       <TouchableOpacity style={styles.RegisterBtn}
       onPress={DonorReg}
@@ -175,46 +161,18 @@ const BlooddetailScreen = ({navigation}) => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  
 
   container1: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
     marginTop: "-50%",
   },
 
-  container2: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "-120%",
-  },
-
-  container3: {
-    flex: 1,
-    width: "100%",
-    marginTop: "0%",
-    backgroundColor: "#fff",
-  },
-  input: {
-    borderStyle: "solid",
-    borderColor: "#B7B7B7",
-    borderRadius: 7,
-    borderWidth: 1,
-    fontSize: 15,
-    height: 50,
-    marginHorizontal: 10,
-    paddingStart: 10,
-    marginBottom: 15,
-  },
+  
+ 
   content: {
     width: "90%",
     marginTop: "10%",
@@ -291,32 +249,7 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
 
-  TextBody: {
-    fontSize: 12,
-    textAlign: "justify",
-    marginLeft: "0.99%",
-    marginVertical: 8,
-    marginHorizontal: 6,
-    fontWeight: "bold",
-    color: "red",
-  },
-  logo: {
-    marginBottom: 30,
-    width: 300,
-    height: 300,
-    marginTop: "-20%",
-    marginHorizontal: "10%",
-  },
-
-  img: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-    width: 100,
-    height: 100,
-    marginTop: "5%",
-    marginLeft: "-40%",
-  },
+  
 
   dropdownAge: {
     marginHorizontal: 10,
@@ -336,14 +269,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  inputView1: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 5,
-    width: "70%",
-    height: 50,
-    marginBottom: 20,
-    alignItems: "center",
-  },
+  
 });
 
 export default BlooddetailScreen;
