@@ -236,7 +236,13 @@ const subcatogary = {
       alert("Required field is missing");
       
       
-    } else {
+    } else if(password.length < 6 || confirmpassword.length < 6){
+      alert("Password must be at least 6 characters long");
+    }
+    else if(password !== confirmpassword){
+      alert("Password does not match");
+    }
+    else {
       // Variable for declare local Api path
       var InsertApiURL = "http://10.0.2.2:80/api/insert.php";
 
