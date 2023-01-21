@@ -235,7 +235,7 @@ const subcatogary = {
     ) {
       alert("Required field is missing");
       
-      
+     // password validation 
     } else if(password.length < 6 || confirmpassword.length < 6){
       alert("Password must be at least 6 characters long");
     }
