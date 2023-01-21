@@ -71,7 +71,7 @@ const FinddonorScreen = ({ navigation }) => {
           <SelectList
             
 
-            setSelected={setAgeValue}
+            setSelected={setBloodValue}
             data={bldgroupctgry}
             placeholder={"Select Blood Group"}
           />
