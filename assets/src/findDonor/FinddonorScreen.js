@@ -12,63 +12,68 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+import { SelectList } from "react-native-dropdown-select-list";
+
 import { ScrollView } from "react-native-gesture-handler";
 
+
+
+
+
+
 const FinddonorScreen = ({ navigation }) => {
-  const [bloodOpen, setBloodOpen] = useState(false);
-  const [bloodValue, setBloodValue] = useState(null);
-  const [blood, setBlood] = useState([
-    { label: "A+", value: "A+" },
-    { label: "A-", value: "A-" },
-    { label: "B+", value: "B+" },
-    { label: "B-", value: "B-" },
-    { label: "AB+", value: "AB+" },
-    { label: "AB-", value: "AB-" },
-    { label: "O+", value: "O+" },
-    { label: "O-", value: "O-" },
-  ]);
-  const [locationOpen, setLocationOpen] = useState(false);
-  const [locationValue, setLocationValue] = useState(null);
-  const [location, setLocation] = useState([
-    { label: "Akkaraipattu", value: "Akkaraipattu" },
-    { label: "Ampara", value: "Ampara" },
-    { label: "Batticaloa", value: "Batticaloa" },
-    { label: "Badulla", value: "Badulla" },
-    { label: "Colombo", value: "Colombo" },
-    { label: "Dambulla", value: "Dambulla" },
-    { label: "Dikkoya", value: "Dikkoya" },
-    { label: "Gampaha", value: "Gampaha" },
-    { label: "Gampola", value: "Gampola" },
-    { label: "Homagama", value: "Homagama" },
-    { label: "Horana", value: "Horana" },
-    { label: "Jaffna", value: "Jaffna" },
-    { label: "Kandy", value: "Kandy" },
-    { label: "Kegalle", value: "Kegalle" },
-    { label: "Killinochchi", value: "Killinochchi" },
-    { label: "Mannar", value: "Mannar" },
-    { label: "NuwaraEliya", value: "NuwaraEliya" },
-    { label: "Polonnaruwa", value: "Polonnaruwa" },
-    { label: "Ratnapura", value: "Ratnapura" },
-    { label: "Trincomalee", value: "Trincomalee" },
-    { label: "Vavuniya", value: "Vavuniya" },
-  ]);
+
+
+
+  const [bloodValue, setBloodValue] = useState('');
+
+  const bldgroupctgry=[
+    { Key: "A+", value: "A+" },
+    { Key: "A-", value: "A-" },
+    { Key: "B+", value: "B+" },
+    { Key: "B-", value: "B-" },
+    { Key: "AB+", value: "AB+" },
+    { Key: "AB-", value: "AB-" },
+    { Key: "O+", value: "O+" },
+    { Key: "O-", value: "O-" },
+  ];
+
+  const [locationValue, setLocationValue] = useState('');
+  const locationctgry = [
+    { Key: "Akkaraipattu", value: "Akkaraipattu" },
+    { Key: "Ampara", value: "Ampara" },
+    { Key: "Batticaloa", value: "Batticaloa" },
+    { Key: "Badulla", value: "Badulla" },
+    { Key: "Colombo", value: "Colombo" },
+    { Key: "Dambulla", value: "Dambulla" },
+    { Key: "Dikkoya", value: "Dikkoya" },
+    { Key: "Gampaha", value: "Gampaha" },
+    { Key: "Gampola", value: "Gampola" },
+    { Key: "Homagama", value: "Homagama" },
+    { Key: "Horana", value: "Horana" },
+    { Key: "Jaffna", value: "Jaffna" },
+    { Key: "Kandy", value: "Kandy" },
+    { Key: "Kegalle", value: "Kegalle" },
+    { Key: "Killinochchi", value: "Killinochchi" },
+    { Key: "Mannar", value: "Mannar" },
+    { Key: "NuwaraEliya", value: "NuwaraEliya" },
+    { Key: "Polonnaruwa", value: "Polonnaruwa" },
+    { Key: "Ratnapura", value: "Ratnapura" },
+    { Key: "Trincomalee", value: "Trincomalee" },
+    { Key: "Vavuniya", value: "Vavuniya" },
+
+  ];
   return (
     <View style={styles.container2}>
       <View style={{ zIndex: 2 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Blood Group</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={bloodOpen}
-            value={bloodValue}
-            items={blood}
-            setOpen={setBloodOpen}
-            setValue={setBloodValue}
-            setItems={setBlood}
-            placeholder="Select Blood Group "
-            placeholderStyle={styles.placeholderStyles}
-            maxHeight={100}
+          <SelectList
+            
+
+            setSelected={setAgeValue}
+            data={bldgroupctgry}
+            placeholder={"Select Blood Group"}
           />
         </View>
       </View>
@@ -76,17 +81,13 @@ const FinddonorScreen = ({ navigation }) => {
       <View style={{ zIndex: 1 }}>
         <View style={styles.dropdownAge}>
           <Text style={styles.label}>Location</Text>
-          <DropDownPicker
-            style={styles.dropdown}
-            open={locationOpen}
-            value={locationValue}
-            items={location}
-            setOpen={setLocationOpen}
-            setValue={setLocationValue}
-            setItems={setLocation}
-            placeholder="Select Location "
-            placeholderStyle={styles.placeholderStyles}
-            maxHeight={100}
+          <SelectList
+
+            setSelected={setLocationValue}
+            data={locationctgry}
+            placeholder={"Select Location"}
+
+           
           />
         </View>
       </View>
